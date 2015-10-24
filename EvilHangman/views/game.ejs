@@ -1,3 +1,6 @@
+<!--
+  
+-->
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,10 +9,8 @@
   </head>
   <body>
     <h1>Game Start!</h1>
-   
    <p> <%= length %> </p>
    <p> <%= tries %> </p>
-   <p> <%= arr[0] %> </p>
    <p id="myTries"></p>
    <p id="word"> </p>
    <button id="A" style="width:100;height:100" onClick="this.disabled=true; changeButton('A')">A</button>
@@ -60,35 +61,84 @@ document.getElementById('word').innerHTML = lines;
 function changeButton(btn) {
     var button = document.getElementById(btn);
     button.style.backgroundColor = "Grey";
-    var charac = button.id.toString().toLowerCase()
+    var charac = button.id.toString().toLowerCase();
+
+    array = getbiggest(charac,array);
+    console.log(array);
+
+    var j = array[0].indexOf(charac);
+    if(j === -1){
+      tries--;  
+      showTries.innerHTML = "Te quedan " + tries + " vidas";
+      button.style.backgroundColor = "Red";
+      if(tries === 1) showTries.innerHTML = "Te queda " + tries + " vida";
+    }else{
+      button.style.backgroundColor = "Green";
+     
+    }    
+
     for(var j=0;j < array[0].length;j++){
       if(array[0].charAt(j) == charac){
         lines = lines.replaceAt(j*2,charac);
         document.getElementById('word').innerHTML = lines;
       }
     }
-    var j = array[0].indexOf(charac);
-    if(j === -1){
-      tries--;  
-      showTries.innerHTML = "Te quedan " + tries + " vidas";
-      if(tries === 1) showTries.innerHTML = "Te queda " + tries + " vida";
-    }else{
-      if (tries < 1) {
+
+    if (tries < 1) { //You lost
         //window.location.replace("localhost:3000/error");
         showTries.innerHTML = "Fallaste faggit.";
-      }
+        document.getElementById('word').innerHTML = showresult();
     }
-    
-    console.log(tries);     
+    if(lines.indexOf('_') == -1 && tries > 0){ // You won
+      showTries.innerHTML = "A winner is you.";
+    }
+
+}
+function showresult(){
+  var res = "";
+  for(var i=0;i< array[0].length;i++){
+    res += array[0].charAt(i) + ' ';
+  }
+  return res;
 }
 
-/*showTries = function() {
-    showTries.innerHTML = "Te quedan " + tries + " intentos";
-    if (tries < 1) {
-      tries.innerHTML = "Fallaste faggit.";
+function getbiggest(ch, arr){
+  var map = {};
+  var bigfam = [] ;
+  var arrays = [];
+
+  for(var i=0;i<arr.length;i++){
+    if(map[getmask(ch,arr[i])] == undefined){
+      map[getmask(ch,arr[i])] = [];
+      map[getmask(ch,arr[i])].push(array[i]);
     }
-    document.getElementById('showTries').innerHTML = t;
-}*/
+    else{
+      map[getmask(ch,arr[i])].push(array[i]);
+    } 
+  }
+  for(var a in map){
+    arrays.push(map[a]);
+  }
+  for(var i=0;i<arrays.length;i++){
+    if(arrays[i].length > bigfam.length){
+      bigfam = arrays[i];
+    }
+  }
+  return bigfam;
+}
+function getmask(ch, word){
+  var m ='';
+  for(var i=0;i<word.length;i++){
+    if(word.charAt(i) == ch){
+      m = m+'1';
+    }
+    else{
+      m = m+'0';
+    }
+  }
+  return m;
+}
+
 
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
