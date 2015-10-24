@@ -23,20 +23,21 @@ fs.readFile('dictionary.txt',function(err,data){
   }
  });
 
-
 /* GET home page. */
-
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Evil hangman!!',array: arr[28] });
 });
 
 router.post('/game', function (req,res){
-  //res.send(length + ' '+ tries);
-  res.render ('game',{length:req.body.length,
+  if(arr[req.body.length].length === 0){
+    res.render('/error', {});
+  }else{
+    res.render ('game',{length:req.body.length,
               tries: req.body.tries,
               arr: arr[req.body.length-1]}
               );
+  }
  });
 
 router.get('/error', function(req, res, next){
