@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Game Start!</h1>
+   
+   <p> <%= length %> </p>
+   <p> <%= tries %> </p>
+   <p> <%= arr[0] %> </p>
+   <p id="word"> </p>
+   <button id="A" style="width:100;height:100" onClick="this.disabled=true; changeButton('A')">A</button>
+   <button id="B" style="width:100;height:100" onClick="this.disabled=true; changeButton('B')">B</button>
+   <button id="C" style="width:100;height:100" onClick="this.disabled=true; changeButton('C')">C</button>
+   <button id="D" style="width:100;height:100" onClick="this.disabled=true; changeButton('D')">D</button>
+   <button id="E" style="width:100;height:100" onClick="this.disabled=true; changeButton('E')">E</button>
+   
+   <button id="F" style="width:100;height:100"onClick="this.disabled=true; changeButton('F')">F</button>
+   <button id="G" style="width:100;height:100"onClick="this.disabled=true; changeButton('G')">G</button>
+   <button id="H" style="width:100;height:100"onClick="this.disabled=true; changeButton('H')">H</button>
+   <button id="I" style="width:100;height:100"onClick="this.disabled=true; changeButton('I')">I</button>
+   <button id="J" style="width:100;height:100"onClick="this.disabled=true; changeButton('J')">J</button>
+   
+   <button id="K" style="width:100;height:100"onClick="this.disabled=true; changeButton('K')">K</button>
+   <button id="L" style="width:100;height:100"onClick="this.disabled=true; changeButton('L')">L</button>
+   <button id="M" style="width:100;height:100"onClick="this.disabled=true; changeButton('M')">M</button>
+   <button id="N" style="width:100;height:100"onClick="this.disabled=true; changeButton('N')">N</button>
+   <button id="O" style="width:100;height:100"onClick="this.disabled=true; changeButton('O')">O</button>
+
+   <button id="P" style="width:100;height:100"onClick="this.disabled=true; changeButton('P')">P</button>
+   <button id="Q" style="width:100;height:100"onClick="this.disabled=true; changeButton('Q')">Q</button>
+   <button id="R" style="width:100;height:100"onClick="this.disabled=true; changeButton('R')">R</button>
+   <button id="S" style="width:100;height:100"onClick="this.disabled=true; changeButton('S')">S</button>
+   <button id="T" style="width:100;height:100"onClick="this.disabled=true; changeButton('T')">T</button>
+   
+   <button id="U" style="width:100;height:100"onClick="this.disabled=true; changeButton('U')">U</button>
+   <button id="V" style="width:100;height:100"onClick="this.disabled=true; changeButton('V');">V</button>
+   <button id="W" style="width:100;height:100"onClick="this.disabled=true; changeButton('W')">W</button>
+   <button id="X" style="width:100;height:100"onClick="this.disabled=true; changeButton('X')">X</button>
+   <button id="Y" style="width:100;height:100"onClick="this.disabled=true; changeButton('Y')">Y</button>
+   <button id="Z" style="width:100;height:100"onClick="this.disabled=true; changeButton('Z')">Z</button>
+
+
+
+
+<script>
+var words = "<%= arr %>";
+var array = words.split(','); //makes back the array sent
+var len = <%= length %>;
+var lines = "";
+for(var i=0;i< len ;i++){
+  lines += "_ ";
+
+console.log(lines.length);
+document.getElementById('word').innerHTML = lines;
+function changeButton(btn) {
+    var button = document.getElementById(btn);
+    button.style.backgroundColor = "Blue";
+    var charac = button.id.toString().toLowerCase()
+    for(var j=0;j < array[0].length;j++){
+      if(array[0].charAt(j) == charac){
+        lines = lines.replaceAt(j*2,charac);
+        document.getElementById('word').innerHTML = lines;
+      }
+    }      
+
+}
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
+</script>
+    
+  </body>
+</html>
