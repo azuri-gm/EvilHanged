@@ -6,6 +6,19 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <form action = "/game" method = "post">
+    <p>
+        Length:
+        <input type ="number" name = "length" />
+    </p>
+    <p>
+        Number of Tries :
+         <input type = "number" name = "tries" />
+    </p>
+    <p>
+        <input type ="submit" value= "Play" >
+    </p>
+    
+   </form>
   </body>
 </html>
