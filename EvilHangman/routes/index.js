@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/game', function (req,res){
-  if(arr[req.body.length].length === 0){
+  if(arr[req.body.length-1].length == 0){
     res.render('/error', {});
   }else{
     res.render ('game',{length:req.body.length,

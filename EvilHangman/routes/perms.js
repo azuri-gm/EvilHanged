@@ -1,13 +1,42 @@
 
-var array = [];
-for(var i=0;i<131072;i++){
-	var arr = i.toString(2).split("");
-	array[i] = arr;
-}
-for(var i=0;i<array.length;i++){
-	while(array[i].length < 17){
-		array[i].unshift('0');
+var a = getbiggest('e',array);
+console.log(a);
+
+function getbiggest(ch, arr){
+	var map = {};
+	var bigfam = [] ;
+	var arrays = [];
+
+	for(var i=0;i<arr.length;i++){
+		if(map[getmask(ch,arr[i])] == undefined){
+			map[getmask(ch,arr[i])] = [];
+			map[getmask(ch,arr[i])].push(array[i]);
+		}
+		else{
+			map[getmask(ch,arr[i])].push(array[i]);
+		}	
 	}
+	for(var a in map){
+		arrays.push(map[a]);
+	}
+	for(var i=0;i<arrays.length;i++){
+		if(arrays[i].length > bigfam.length){
+			bigfam = arrays[i];
+		}
+	}
+	return bigfam;
 }
 
-console.log('done');
+
+function getmask(ch, word){
+	var m ='';
+	for(var i=0;i<word.length;i++){
+		if(word.charAt(i) == ch){
+			m = m+'1';
+		}
+		else{
+			m = m+'0';
+		}
+	}
+	return m;
+}
