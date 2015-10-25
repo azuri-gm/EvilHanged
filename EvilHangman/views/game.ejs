@@ -86,10 +86,12 @@ function changeButton(btn) {
 
     if (tries < 1) { //You lost
         //window.location.replace("localhost:3000/error");
+        //window.location = "./loser.html";
         showTries.innerHTML = "Fallaste faggit.";
         document.getElementById('word').innerHTML = showresult();
     }
     if(lines.indexOf('_') == -1 && tries > 0){ // You won
+      //window.location = "./winner.html";
       showTries.innerHTML = "A winner is you.";
     }
 

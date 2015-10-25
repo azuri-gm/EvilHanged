@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
+var contador_global = 0;
 
 var arr = new Array();
 
@@ -26,22 +27,33 @@ fs.readFile('dictionary.txt',function(err,data){
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Evil hangman!!',array: arr[28] });
+  res.render('index', { title: 'Evil hangman!!', array: req.session.arr[28] });
 });
 
 router.post('/game', function (req,res){
-  if(arr[req.body.length-1].length == 0){
+  req.session.arr = req.body.arr[req.body.length-1];
+  req.session.length = req.body.length;
+  req.session.tries = req.body.tries;
+  if(arr[req.body.length-1].length === 0){
     res.render('/error', {});
   }else{
-    res.render ('game',{length:req.body.length,
-              tries: req.body.tries,
-              arr: arr[req.body.length-1]}
+    res.render ('game',{length:req.session.length,
+              tries: req.session.tries,
+              arr: arr[req.session.length-1]}
               );
   }
  });
 
 router.get('/error', function(req, res, next){
   res.render('error', {});
+});
+
+router.get('/winner', function(req, res, next){
+  res.render('winner', {});
+});
+
+router.get('/loser', function(req, res, next){
+  res.render('loser', {});
 });
 
 module.exports = router;
