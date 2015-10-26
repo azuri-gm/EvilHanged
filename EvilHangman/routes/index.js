@@ -1,3 +1,10 @@
+/*----------------------------------------------------------
+ * Exam 2: Evil Hangman
+ * Date: 26-Oct-2015
+ * Authors:
+ *           A01165829 Pedro Picapicapiedra Rodriguez 
+ *           A01165988 Pablo Marmol Gaytán
+ *----------------------------------------------------------*/
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
@@ -26,22 +33,41 @@ fs.readFile('dictionary.txt',function(err,data){
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Evil hangman!!',array: arr[28] });
+  res.render('index', { title: 'Evil hangman!!'});
 });
 
 router.post('/game', function (req,res){
-  if(arr[req.body.length-1].length == 0){
+  console.log('it went through here');
+  req.session.len = req.body.len;
+  req.session.tries = req.body.tries;
+
+  req.session.arr = arr[req.session.len-1];
+  console.log(req.session.arr);
+  console.log(req.session.len);
+  console.log(req.session.tries);
+  console.log(req.session.arr.length);
+  
+  if(req.session.arr.length == 0 && req.session.len > 0 && req.session.len <= 26){
+
     res.render('/error', {});
   }else{
-    res.render ('game',{length:req.body.length,
-              tries: req.body.tries,
-              arr: arr[req.body.length-1]}
+    res.render ('game',{length:req.session.len,
+              tries: req.session.tries,
+              arr: req.session.arr}
               );
   }
  });
 
 router.get('/error', function(req, res, next){
   res.render('error', {});
+});
+
+router.get('/winner', function(req, res, next){
+  res.render('winner', {});
+});
+
+router.get('/loser', function(req, res, next){
+  res.render('loser', {});
 });
 
 module.exports = router;
