@@ -47,8 +47,7 @@ router.post('/game', function (req,res){
   console.log(req.session.tries);
   console.log(req.session.arr.length);
   
-  if(req.session.arr.length == 0 && req.session.len > 0 && req.session.len <= 26){
-
+  if(req.session.arr.length === 0 && req.session.len > 0 && req.session.len <= 26){
     res.render('/error', {});
   }else{
     res.render ('game',{length:req.session.len,

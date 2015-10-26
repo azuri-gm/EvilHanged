@@ -1,4 +1,10 @@
-
+/*----------------------------------------------------------
+ * Exam 2: Evil Hangman
+ * Date: 26-Oct-2015
+ * Authors:
+ *           A01165829 Pedro Picapicapiedra Rodriguez 
+ *           A01165988 Pablo Marmol Gaytán
+ *----------------------------------------------------------*/
 var a = getbiggest('e',array);
 console.log(a);
 
